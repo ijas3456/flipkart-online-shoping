@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flipkart E-commerce</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Welcome to Flipkart</h1>
+    {% if current_user.is_authenticated %}
+        <p>Hello, {{ current_user.username }} | <a href="{{ url_for('logout') }}">Logout</a> | <a href="{{ url_for('cart') }}">Cart</a></p>
+    {% else %}
+        <a href="{{ url_for('login') }}">Login</a> | <a href="{{ url_for('register') }}">Register</a>
+    {% endif %}
+
+    <form action="/predict" method="post">
+        <input name="feature1" placeholder="Feature 1" required>
+        <input name="feature2" placeholder="Feature 2" required>
+        <button type="submit">Predict</button>
+    </form>
+    {% if prediction %}
+        <h3>Prediction: {{ prediction }}</h3>
+    {% endif %}
+
+    <div class="products">
+        {% for product in products %}
+        <div class="product">
+            <h3>{{ product.name }}</h3>
+            <img src="{{ product.image_url }}" width="150">
+            <p>Brand: {{ product.brand }}</p>
+            <p>Price: ₹{{ product.price }}</p>
+            <a href="{{ url_for('product_detail', product_id=product.id) }}">Details</a>
+            {% if current_user.is_authenticated %}
+            | <a href="{{ url_for('add_to_cart', product_id=product.id) }}">Add to Cart</a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

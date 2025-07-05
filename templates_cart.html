@@ -1,0 +1,7 @@
+<h2>Your Cart</h2>
+{% for product in products %}
+    <p>{{ product.name }} - ₹{{ product.price }}
+    <a href="{{ url_for('remove_from_cart', product_id=product.id) }}">Remove</a></p>
+{% else %}
+    <p>Cart is empty.</p>
+{% endfor %}

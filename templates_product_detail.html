@@ -1,0 +1,6 @@
+<h2>{{ product.name }}</h2>
+<img src="{{ product.image_url }}" width="200">
+<p>Brand: {{ product.brand }}</p>
+<p>Price: ₹{{ product.price }}</p>
+<p>{{ product.description }}</p>
+<a href="{{ url_for('add_to_cart', product_id=product.id) }}">Add to Cart</a>
